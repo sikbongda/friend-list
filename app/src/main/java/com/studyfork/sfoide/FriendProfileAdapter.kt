@@ -1,6 +1,7 @@
 package com.studyfork.sfoide
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +17,19 @@ class FriendProfileAdapter(
     private val context: Context
 ) : RecyclerView.Adapter<FriendProfileAdapter.ViewHolder>() {
 
-    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.name
         val age: TextView = view.age
         val email: TextView = view.email
         val phoneNumber: TextView = view.phone_number
         val cellphoneNumber: TextView = view.cell_phone_number
         val photo: ImageView = view.photo
+    }
+
+    interface OnItemClickListener {
+        fun onClick() {
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,6 +53,17 @@ class FriendProfileAdapter(
             .load(friendList[position].photoUrl.large)
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(holder.photo)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, FriendDetailActivity::class.java)
+            intent.putExtra(FriendDetailActivity.NAME, friendList[position].name.first.plus(friendList[position].name.last))
+            intent.putExtra(FriendDetailActivity.AGE, friendList[position].dob.age.toString())
+            intent.putExtra(FriendDetailActivity.EMAIL, friendList[position].email)
+            intent.putExtra(FriendDetailActivity.PHONE, friendList[position].phoneNumber)
+            intent.putExtra(FriendDetailActivity.CELLPHONE, friendList[position].cellPhoneNumber)
+            intent.putExtra(FriendDetailActivity.PHOTO, friendList[position].photoUrl.large)
+            context.startActivity(intent)
+        }
     }
 
 }

@@ -14,7 +14,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String? = MainActivity::class.simpleName
-    val dataArray: ArrayList<FriendProfile> = ArrayList()
+    var dataArray: List<FriendProfile> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity() {
         val retrofit = ApiBuilder().build()
         val friendService = retrofit.create(FriendApiService::class.java)
 
-        friendService.getFriendList(3, 10, "abc").enqueue(object : Callback<ApiResponse> {
+        val friendPerPage = 10
+
+        friendService.getFriendList(3, friendPerPage, "abc").enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 Log.e(TAG, "onFailure ${t.message}")
             }
@@ -34,30 +36,15 @@ class MainActivity : AppCompatActivity() {
             ) {
                 val res: ApiResponse? = response.body()
                 Log.d(TAG, "onResponse body: ${res.toString()}")
-                Log.d(TAG, "result: ${res?.results}")
-                Log.d(TAG, "name: ${res?.results?.get(0)?.name}")
+                //Log.d(TAG, "result: ${res?.results}")
+                //Log.d(TAG, "name: ${res?.results?.get(0)?.name}")
+                dataArray = res?.results!!
+
+                friend_recycler_view.layoutManager = LinearLayoutManager(baseContext)
+                friend_recycler_view.adapter = FriendProfileAdapter(dataArray, baseContext)
             }
         })
 
-        addDataArray()
 
-        friend_recycler_view.layoutManager = LinearLayoutManager(this)
-        friend_recycler_view.adapter = FriendProfileAdapter(dataArray, this)
-    }
-
-    private fun addDataArray() {
-        //TODO: remove later
-        var friend: FriendProfile
-        for (x in 1..10) {
-            friend = FriendProfile(
-                Name("Ms","Lucia","Brown"),
-                Dob("",34),
-                "F", "es",
-                "lucia@example.com",
-                "555-111-1111", "080-0999-0000",
-                Picture("","","")
-            )
-            dataArray.add(friend)
-        }
     }
 }

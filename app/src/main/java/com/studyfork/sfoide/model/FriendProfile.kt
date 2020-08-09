@@ -3,7 +3,7 @@ package com.studyfork.sfoide.model
 import com.google.gson.annotations.SerializedName
 
 data class Dob(
-    val data: String,
+    val date: String,
     val age: Int
 )
 

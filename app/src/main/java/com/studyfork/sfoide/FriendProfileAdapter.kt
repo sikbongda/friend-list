@@ -10,7 +10,7 @@ import com.studyfork.sfoide.model.FriendProfile
 import kotlinx.android.synthetic.main.friend_profile_item_view.view.*
 
 class FriendProfileAdapter(
-    private val friendList: ArrayList<FriendProfile>,
+    private val friendList: List<FriendProfile>,
     private val context: Context
 ) : RecyclerView.Adapter<FriendProfileAdapter.ViewHolder>() {
 

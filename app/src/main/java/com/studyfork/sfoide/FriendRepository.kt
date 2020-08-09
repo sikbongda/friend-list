@@ -14,6 +14,7 @@ class FriendRepository {
     private val TAG = "FriendRepository"
 
     private val friendList: MutableLiveData<List<FriendProfile>> = MutableLiveData()
+    private val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getFriendList(page: Int, results: Int, seed: String): MutableLiveData<List<FriendProfile>> {
         Log.d(TAG, "getFriendList page=${page} results=${results} seed=${seed}")
@@ -21,10 +22,13 @@ class FriendRepository {
         val retrofit = ApiBuilder().build()
         val friendService = retrofit.create(FriendApiService::class.java)
 
+        isLoading.value = true
+
         friendService.getFriendList(page, results, seed)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                     Log.e(TAG, "onFailure: ${t.message}")
+                    isLoading.value = false
                 }
 
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
@@ -34,9 +38,14 @@ class FriendRepository {
                         val res: ApiResponse? = response.body()
                         friendList.value = res?.results
                     }
+                    isLoading.value = false
                 }
             })
 
         return friendList
+    }
+
+    fun getIsLoading(): MutableLiveData<Boolean> {
+        return isLoading
     }
 }

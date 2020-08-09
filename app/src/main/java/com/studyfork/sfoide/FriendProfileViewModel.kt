@@ -10,4 +10,8 @@ class FriendProfileViewModel: ViewModel() {
     fun getFriendList(page: Int, results: Int, seed: String) : LiveData<List<FriendProfile>> {
         return friendRepository.getFriendList(page, results, seed)
     }
+
+    fun isLoading() : LiveData<Boolean> {
+        return friendRepository.getIsLoading()
+    }
 }

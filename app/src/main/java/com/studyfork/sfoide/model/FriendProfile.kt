@@ -1,12 +1,31 @@
 package com.studyfork.sfoide.model
 
+import com.google.gson.annotations.SerializedName
+
+data class Dob(
+    val data: String,
+    val age: Int
+)
+
+data class Picture(
+    val large: String,
+    val medium: String,
+    val thumbnail: String
+)
+
+data class Name(
+    val title: String,
+    val first: String,
+    val last: String
+)
+
 data class FriendProfile(
-    val name: String,
-    val age: Int,
+    val name: Name,
+    val dob: Dob,
     val gender: String,
-    val country: String,
+    @SerializedName("nat") val country: String,
     val email: String,
-    val phoneNumber: String,
-    val cellPhoneNumber: String,
-    val photoUrl: String
+    @SerializedName("phone") val phoneNumber: String,
+    @SerializedName("cell") val cellPhoneNumber: String,
+    @SerializedName("picture") val photoUrl: Picture
 )

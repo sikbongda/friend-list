@@ -33,8 +33,8 @@ class FriendProfileAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = friendList[position].name
-        holder.age.text = friendList[position].age.toString()
+        holder.name.text = friendList[position].name.first.plus(friendList[position].name.last)
+        holder.age.text = friendList[position].dob.age.toString()
         holder.email.text = friendList[position].email
         holder.phoneNumber.text = friendList[position].phoneNumber
         holder.cellphoneNumber.text = friendList[position].cellPhoneNumber

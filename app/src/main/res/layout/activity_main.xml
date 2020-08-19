@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/friend_profile_item_view" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

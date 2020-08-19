@@ -34,7 +34,7 @@ class FriendProfileAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.friend_profile_item_view, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.friend_profile_item_view, parent, false)
         )
     }
 

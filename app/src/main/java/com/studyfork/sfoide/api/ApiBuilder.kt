@@ -20,7 +20,7 @@ class ApiBuilder {
 
         if (BuildConfig.DEBUG) {
             val logInterceptor = HttpLoggingInterceptor()
-            logInterceptor.level = HttpLoggingInterceptor.Level.HEADERS
+            logInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(logInterceptor)
         }
 

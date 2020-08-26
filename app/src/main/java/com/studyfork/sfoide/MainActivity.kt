@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         intent.putExtra(FriendDetailActivity.EMAIL, friend.email)
         intent.putExtra(FriendDetailActivity.PHONE, friend.phoneNumber)
         intent.putExtra(FriendDetailActivity.CELLPHONE, friend.cellPhoneNumber)
+        intent.putExtra(FriendDetailActivity.LATITUDE, friend.location.coordinates.latitude)
+        intent.putExtra(FriendDetailActivity.LONGITUDE, friend.location.coordinates.longitude)
         intent.putExtra(FriendDetailActivity.PHOTO, friend.photoUrl.large)
         startActivity(intent)
     }

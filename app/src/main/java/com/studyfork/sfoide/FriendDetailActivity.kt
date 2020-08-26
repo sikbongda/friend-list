@@ -5,33 +5,31 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.studyfork.sfoide.api.GlideApp
+import kotlinx.android.synthetic.main.activity_friend_detail.*
 
 class FriendDetailActivity : AppCompatActivity() {
     companion object {
-        val PHOTO = "PHOTO"
-        val NAME = "NAME"
-        val AGE = "AGE"
-        val EMAIL = "EMAIL"
-        val PHONE = "PHONE"
-        val CELLPHONE = "CELLPHONE"
+        const val PHOTO = "PHOTO"
+        const val NAME = "NAME"
+        const val AGE = "AGE"
+        const val EMAIL = "EMAIL"
+        const val PHONE = "PHONE"
+        const val CELLPHONE = "CELLPHONE"
+        const val LATITUDE = "LATITUDE"
+        const val LONGITUDE = "LONGITUDE"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_detail)
 
-        val name: TextView = findViewById(R.id.name)
-        val age: TextView = findViewById(R.id.age)
-        val email: TextView = findViewById(R.id.email)
-        val phone: TextView = findViewById(R.id.phone_number)
-        val cellphone: TextView = findViewById(R.id.cell_phone_number)
-        val photo: ImageView = findViewById(R.id.imageView)
-
         name.text = intent.getStringExtra(NAME)
         age.text = intent.getStringExtra(AGE)
         email.text = intent.getStringExtra(EMAIL)
-        phone.text = intent.getStringExtra(PHONE)
-        cellphone.text = intent.getStringExtra(CELLPHONE)
+        phone_number.text = intent.getStringExtra(PHONE)
+        cell_phone_number.text = intent.getStringExtra(CELLPHONE)
+        latitude.text = intent.getFloatExtra(LATITUDE, 0f).toString()
+        longitude.text = intent.getFloatExtra(LONGITUDE, 0f).toString()
 
         GlideApp.with(this)
             .load(intent.getStringExtra(PHOTO))

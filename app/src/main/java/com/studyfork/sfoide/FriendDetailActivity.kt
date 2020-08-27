@@ -1,39 +1,34 @@
 package com.studyfork.sfoide
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.studyfork.sfoide.api.GlideApp
+import com.studyfork.sfoide.model.FriendProfile
 import kotlinx.android.synthetic.main.activity_friend_detail.*
 
 class FriendDetailActivity : AppCompatActivity() {
     companion object {
-        const val PHOTO = "PHOTO"
-        const val NAME = "NAME"
-        const val AGE = "AGE"
-        const val EMAIL = "EMAIL"
-        const val PHONE = "PHONE"
-        const val CELLPHONE = "CELLPHONE"
-        const val LATITUDE = "LATITUDE"
-        const val LONGITUDE = "LONGITUDE"
+        const val FRIEND = "FRIEND"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_detail)
 
-        name.text = intent.getStringExtra(NAME)
-        age.text = intent.getStringExtra(AGE)
-        email.text = intent.getStringExtra(EMAIL)
-        phone_number.text = intent.getStringExtra(PHONE)
-        cell_phone_number.text = intent.getStringExtra(CELLPHONE)
-        latitude.text = intent.getFloatExtra(LATITUDE, 0f).toString()
-        longitude.text = intent.getFloatExtra(LONGITUDE, 0f).toString()
+        val friend = intent.getParcelableExtra<FriendProfile>(FRIEND)
+        friend?.let{
+            GlideApp.with(this)
+                .load(it.photoUrl.large)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(photo)
 
-        GlideApp.with(this)
-            .load(intent.getStringExtra(PHOTO))
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .into(photo)
+            name.text = it.name.first.plus(it.name.last)
+            age.text = it.dob.age.toString()
+            email.text = it.email
+            phone_number.text = it.phoneNumber
+            cell_phone_number.text = it.cellPhoneNumber
+            latitude.text = it.location.coordinates.latitude.toString()
+            longitude.text = it.location.coordinates.longitude.toString()
+        }
     }
 }

@@ -41,14 +41,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun onClickItem(friend: FriendProfile) {
         val intent = Intent(this, FriendDetailActivity::class.java)
-        intent.putExtra(FriendDetailActivity.NAME, friend.name.first.plus(friend.name.last))
-        intent.putExtra(FriendDetailActivity.AGE, friend.dob.age.toString())
-        intent.putExtra(FriendDetailActivity.EMAIL, friend.email)
-        intent.putExtra(FriendDetailActivity.PHONE, friend.phoneNumber)
-        intent.putExtra(FriendDetailActivity.CELLPHONE, friend.cellPhoneNumber)
-        intent.putExtra(FriendDetailActivity.LATITUDE, friend.location.coordinates.latitude)
-        intent.putExtra(FriendDetailActivity.LONGITUDE, friend.location.coordinates.longitude)
-        intent.putExtra(FriendDetailActivity.PHOTO, friend.photoUrl.large)
+        intent.putExtra(FriendDetailActivity.FRIEND, friend)
         startActivity(intent)
     }
 }

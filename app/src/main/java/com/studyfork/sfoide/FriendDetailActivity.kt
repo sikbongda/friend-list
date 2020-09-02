@@ -1,7 +1,9 @@
 package com.studyfork.sfoide
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.studyfork.sfoide.FriendFragmentActivity.Companion.PARAM
 import com.studyfork.sfoide.api.GlideApp
 import com.studyfork.sfoide.model.FriendProfile
 import kotlinx.android.synthetic.main.activity_friend_detail.*
@@ -29,6 +31,12 @@ class FriendDetailActivity : AppCompatActivity() {
             cell_phone_number.text = it.cellPhoneNumber
             latitude.text = it.location.coordinates.latitude.toString()
             longitude.text = it.location.coordinates.longitude.toString()
+        }
+
+        photo.setOnClickListener {
+            val i = Intent(this, FriendFragmentActivity::class.java)
+            i.putExtra(PARAM, friend)
+            startActivity(i)
         }
     }
 }
